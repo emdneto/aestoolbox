@@ -28,7 +28,7 @@ Features
 --------
 
 * Encryption/Decryption Key Scheduling
-* AES Encrypt/Decrypt (working in progress)
+* AES Encrypt/Decrypt (work in progress)
 
 Get AES-Toolbox from source
 -----------------------
