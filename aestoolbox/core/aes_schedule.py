@@ -1,0 +1,135 @@
+import sys
+import logging
+from pprint import pprint
+from helpers.const import *
+
+LOG =  logging.getLogger(__name__)
+
+class KeySchedule:
+    
+    def __init__(self, key, dec=False):
+        self.key = key
+        self.dec = dec
+        self.xk = None
+        self.ixk = None
+        self.hkeys = {"xk": {}, "xki": {}}
+        self.Nk = {128: 4, 192: 6, 256: 8}
+        self.Nr = {128: 10, 192: 12, 256: 14}
+        self.validate_key()
+
+
+    @staticmethod
+    def format_hkeys(xkb, Nr):
+        """
+        Formats the array of expanded key (xkb) or inverse expanded key (xki) \ 
+        in hexadecimal values and returns a dictionary with all round keys.
+        
+        :param: xkb: Array of the expanded AES key.
+        :param: Nr: The numbers of rounds base on key length.
+        :return: dkeys: Dictionary of formated round keys.
+        """
+        dkeys = {}
+        for i in range(Nr+1):
+            kround = [xkb[4*i], xkb[4*i+1], xkb[4*i+2], xkb[4*i+3]]
+            kround = '0x'+ ''.join('{:08x}'.format(x) for x in kround)
+            dkeys[i] = kround
+        return dkeys
+
+    @staticmethod
+    def rotw(w):
+        """
+        Simple rotate transformation to a 4-byte word.
+
+        :param: w: 4-byte word.
+        :return: 4-byte transformed word.
+        """
+        return w<<8 | w>>24
+    
+    @staticmethod
+    def subw(w):
+        """
+        Apply Sbox match to each byte in word w.
+
+        :param: 4-byte word
+        :return: 4-byte transformed word.
+        """
+        return Sbox[w>>24&0xff] << 24 | Sbox[w>>16&0xff]<<16 | Sbox[w>>8&0xff] << 8 | Sbox[w&0xff]
+
+    def validate_key(self):
+        k = self.key
+
+        base_len = {128, 192, 256}
+
+        if not k.startswith('0x'):
+            raise Exception(f'Wrong key format. Please consider this format: "0x{k}"')
+            return
+        
+        k = k[2:]
+        len_k = len(k) * 4
+        if not len_k in {128, 192, 256}:
+            raise Exception(f'Wrong key size! It should be {base_len}bits instead of {len_k}')
+            return
+        
+        if not k.strip('0123456789abcdefABCDEF')=='':
+            raise Exception(f'Wrong key format! It should be Hex.')
+
+        self.key = k
+        return True
+        
+
+    def expand_key(self):
+        """ 
+        Computes the expanded AES key given a 128, 192 or 256 bit key.
+        :return:  Expanded AES Key. If `dec` is True, also returns the decryption expanded AES Key in a tuple.
+        """
+
+        n=8
+        key = self.key
+        len_xk = len(key)
+        base = 4 * len_xk
+        
+        Nk, Nr = self.Nk[base], self.Nr[base]
+        
+        
+        xkb = [0 for _ in range((Nr+1) * 4)]
+        output = [key[i:i+n] for i in range(0, len_xk, n)] 
+        
+        
+        for i in range(Nk):
+            xkb[i] = int(output[i], 16)
+        
+        #Key expansion based on Golang implementation (https://golang.org/src/crypto/aes/block.go)
+        for i in range(Nk, (4*(Nr+1))):
+            t = xkb[i-1]
+            if i % Nk == 0:
+                t = self.subw(self.rotw(t)) ^ (powx[i//Nk-1] << 24) # It is equivalent to rcon[i//Nk-1]
+            elif Nk > 6 and i % Nk == 4:
+                t = self.subw(t)
+            xkb[i] = xkb[i-Nk] ^ t
+        
+        self.xk = xkb
+        self.hkeys["xk"] = self.format_hkeys(xkb, Nr)
+    
+        if not self.dec:
+            return xkb
+
+
+        dec = [None for _ in range(len(xkb))]
+  
+        # Computes the decryption expanded keys from the encryption key
+        for i in range(4):
+            dec[i] = xkb[i]
+            dec[((Nr+1)-1)*4+i] = xkb[((Nr+1)-1)*4+i]
+            
+        for i in range(4, ((Nr+1)-1)*4):
+            xb = xkb[i]
+            t = td0[Sbox[xb>>24]] ^ td1[Sbox[xb>>16&0xff]] ^ td2[Sbox[xb>>8&0xff]] ^ td3[Sbox[xb&0xff]]
+            dec[i] = t
+
+        self.ixk = dec
+        self.hkeys["xki"] = self.format_hkeys(dec, Nr)
+
+        return (dec, xkb)
+        
+    def hexdump(self):
+        pprint(self.hkeys)        
