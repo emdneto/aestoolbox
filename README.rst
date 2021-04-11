@@ -39,9 +39,12 @@ First, clone the `AES-Toolbox GitHub repository <https://github.com/emdneto/aest
 
     $ git clone https://github.com/emdneto/aestoolbox
 
+Then, ``cd`` to the created directory and run:
 
-* Free software: GNU General Public License v3
-* Documentation: https://aestoolbox.readthedocs.io.
+.. code-block:: bash
+
+    $ make install
+    
 
 
 Usage (via CLI)
@@ -87,7 +90,3 @@ Usage as Python Library
 -----------------------
 
 Soon
-
-
-
-
