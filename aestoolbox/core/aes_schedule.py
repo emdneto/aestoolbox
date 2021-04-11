@@ -1,12 +1,11 @@
-import sys
 import logging
 from pprint import pprint
-from helpers.const import *
+from aestoolbox.core.const import Sbox, powx, td0, td1, td2, td3
 
-LOG =  logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
+
 
 class KeySchedule:
-    
     def __init__(self, key, dec=False):
         self.key = key
         self.dec = dec
@@ -17,21 +16,20 @@ class KeySchedule:
         self.Nr = {128: 10, 192: 12, 256: 14}
         self.validate_key()
 
-
     @staticmethod
     def format_hkeys(xkb, Nr):
         """
-        Formats the array of expanded key (xkb) or inverse expanded key (xki) \ 
+        Formats the array of expanded key (xkb) or inverse expanded key (xki)
         in hexadecimal values and returns a dictionary with all round keys.
-        
+
         :param: xkb: Array of the expanded AES key.
         :param: Nr: The numbers of rounds base on key length.
         :return: dkeys: Dictionary of formated round keys.
         """
         dkeys = {}
-        for i in range(Nr+1):
-            kround = [xkb[4*i], xkb[4*i+1], xkb[4*i+2], xkb[4*i+3]]
-            kround = '0x'+ ''.join('{:08x}'.format(x) for x in kround)
+        for i in range(Nr + 1):
+            kround = [xkb[4 * i], xkb[4 * i + 1], xkb[4 * i + 2], xkb[4 * i + 3]]
+            kround = "0x" + "".join("{:08x}".format(x) for x in kround)
             dkeys[i] = kround
         return dkeys
 
@@ -43,8 +41,8 @@ class KeySchedule:
         :param: w: 4-byte word.
         :return: 4-byte transformed word.
         """
-        return w<<8 | w>>24
-    
+        return w << 8 | w >> 24
+
     @staticmethod
     def subw(w):
         """
@@ -53,83 +51,92 @@ class KeySchedule:
         :param: 4-byte word
         :return: 4-byte transformed word.
         """
-        return Sbox[w>>24&0xff] << 24 | Sbox[w>>16&0xff]<<16 | Sbox[w>>8&0xff] << 8 | Sbox[w&0xff]
+        return (
+            Sbox[w >> 24 & 0xFF] << 24
+            | Sbox[w >> 16 & 0xFF] << 16
+            | Sbox[w >> 8 & 0xFF] << 8
+            | Sbox[w & 0xFF]
+        )
 
     def validate_key(self):
         k = self.key
 
         base_len = {128, 192, 256}
 
-        if not k.startswith('0x'):
+        if not k.startswith("0x"):
             raise Exception(f'Wrong key format. Please consider this format: "0x{k}"')
             return
-        
+
         k = k[2:]
         len_k = len(k) * 4
-        if not len_k in {128, 192, 256}:
-            raise Exception(f'Wrong key size! It should be {base_len}bits instead of {len_k}')
+        if len_k not in {128, 192, 256}:
+            raise Exception(f"Wrong key size! It should be {base_len}bits instead of {len_k}")
             return
-        
-        if not k.strip('0123456789abcdefABCDEF')=='':
-            raise Exception(f'Wrong key format! It should be Hex.')
+
+        if not k.strip("0123456789abcdefABCDEF") == "":
+            raise Exception("Wrong key format! It should be Hex.")
 
         self.key = k
         return True
-        
 
     def expand_key(self):
-        """ 
+        """
         Computes the expanded AES key given a 128, 192 or 256 bit key.
-        :return:  Expanded AES Key. If `dec` is True, also returns the decryption expanded AES Key in a tuple.
+        :return:  Expanded AES Key. If `dec` is True, also returns the
+                  decryption expanded AES Key in a tuple.
         """
 
-        n=8
+        n = 8
         key = self.key
         len_xk = len(key)
         base = 4 * len_xk
-        
+
         Nk, Nr = self.Nk[base], self.Nr[base]
-        
-        
-        xkb = [0 for _ in range((Nr+1) * 4)]
-        output = [key[i:i+n] for i in range(0, len_xk, n)] 
-        
-        
+
+        xkb = [0 for _ in range((Nr + 1) * 4)]
+        output = [key[i : i + n] for i in range(0, len_xk, n)]
+
         for i in range(Nk):
             xkb[i] = int(output[i], 16)
-        
-        #Key expansion based on Golang implementation (https://golang.org/src/crypto/aes/block.go)
-        for i in range(Nk, (4*(Nr+1))):
-            t = xkb[i-1]
+
+        # Key expansion based on Golang implementation (https://golang.org/src/crypto/aes/block.go)
+        for i in range(Nk, (4 * (Nr + 1))):
+            t = xkb[i - 1]
             if i % Nk == 0:
-                t = self.subw(self.rotw(t)) ^ (powx[i//Nk-1] << 24) # It is equivalent to rcon[i//Nk-1]
+                t = self.subw(self.rotw(t)) ^ (
+                    powx[i // Nk - 1] << 24
+                )  # It is equivalent to rcon[i//Nk-1]
             elif Nk > 6 and i % Nk == 4:
                 t = self.subw(t)
-            xkb[i] = xkb[i-Nk] ^ t
-        
+            xkb[i] = xkb[i - Nk] ^ t
+
         self.xk = xkb
         self.hkeys["xk"] = self.format_hkeys(xkb, Nr)
-    
+
         if not self.dec:
             return xkb
 
-
         dec = [None for _ in range(len(xkb))]
-  
+
         # Computes the decryption expanded keys from the encryption key
         for i in range(4):
             dec[i] = xkb[i]
-            dec[((Nr+1)-1)*4+i] = xkb[((Nr+1)-1)*4+i]
-            
-        for i in range(4, ((Nr+1)-1)*4):
+            dec[((Nr + 1) - 1) * 4 + i] = xkb[((Nr + 1) - 1) * 4 + i]
+
+        for i in range(4, ((Nr + 1) - 1) * 4):
             xb = xkb[i]
-            t = td0[Sbox[xb>>24]] ^ td1[Sbox[xb>>16&0xff]] ^ td2[Sbox[xb>>8&0xff]] ^ td3[Sbox[xb&0xff]]
+            t = (
+                td0[Sbox[xb >> 24]]
+                ^ td1[Sbox[xb >> 16 & 0xFF]]
+                ^ td2[Sbox[xb >> 8 & 0xFF]]
+                ^ td3[Sbox[xb & 0xFF]]
+            )
             dec[i] = t
 
         self.ixk = dec
         self.hkeys["xki"] = self.format_hkeys(dec, Nr)
 
         return (dec, xkb)
-        
+
     def hexdump(self):
-        pprint(self.hkeys)        
+        pprint(self.hkeys)

@@ -28,4 +28,4 @@ repos:
         - "--select=B,C,E,F,W,T4,B9"
         - "--extend-exclude=docs/*"
         - "--extend-exclude=tests/*"
-        - "--ignore=W503"
+        - "--ignore=W503,E226,E227,E203"
