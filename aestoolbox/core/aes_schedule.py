@@ -9,8 +9,8 @@ class KeySchedule:
     def __init__(self, key, dec=False):
         self.key = key
         self.dec = dec
-        self.xk = None
-        self.ixk = None
+        self.xk = []
+        self.ixk = []
         self.hkeys = {"xk": {}, "xki": {}}
         self.Nk = {128: 4, 192: 6, 256: 8}
         self.Nr = {128: 10, 192: 12, 256: 14}
@@ -110,7 +110,7 @@ class KeySchedule:
                 t = self.subw(t)
             xkb[i] = xkb[i - Nk] ^ t
 
-        self.xk = xkb
+        # self.xk = xkb
         self.hkeys["xk"] = self.format_hkeys(xkb, Nr)
 
         if not self.dec:
@@ -133,7 +133,7 @@ class KeySchedule:
             )
             dec[i] = t
 
-        self.ixk = dec
+        # self.ixk = dec
         self.hkeys["xki"] = self.format_hkeys(dec, Nr)
 
         return (dec, xkb)
