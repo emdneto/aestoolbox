@@ -6,7 +6,7 @@ AES-Toolbox
 .. image:: https://img.shields.io/pypi/v/aestoolbox.svg
         :target: https://pypi.python.org/emdneto/aestoolbox
 
-.. image:: https://img.shields.io/travis/latarc/aestoolbox.svg
+.. image:: https://travis-ci.com/emdneto/aestoolbox.svg?branch=main
         :target: https://travis-ci.com/emdneto/aestoolbox
 
 .. image:: https://readthedocs.org/projects/aestoolbox/badge/?version=latest
