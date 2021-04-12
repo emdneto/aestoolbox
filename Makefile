@@ -48,7 +48,7 @@ clean-test:
 	rm -fr .pytest_cache
 
 lint: ## check style with pylint
-	pylint --disable=missing-final-newline aestoolbox tests
+	flake8 --max-line-length=100 --max-complexity=22 --select=B,C,E,F,W,T4,B9 --exclude=const.py --extend-exclude=docs/* --extend-exclude=tests/* --ignore=W503,E226,E227,E203 aestoolbox/core
 
 test: ## run tests quickly with the default Python
 	pytest
