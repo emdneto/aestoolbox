@@ -5,7 +5,7 @@ repos:
   - id: black
     language_version: python3
     args:
-      - --line-length=100
+      - --line-length=103
       - --include='\.pyi?$'
       - --exclude="""\.git |
         \.__pycache__|
