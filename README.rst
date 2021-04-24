@@ -22,6 +22,10 @@ AES-Toolbox
 .. image:: https://img.shields.io/github/license/emdneto/aestoolbox.svg
         :target: https://github.com/emdneto/aestoolbox/blob/main/LICENSE
         :alt: License
+ 
+.. image:: https://img.shields.io/pypi/v/aestoolbox
+        :target: https://pypi.org/project/aestoolbox/
+        :alt: PyPI
 
 An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit key.
 
