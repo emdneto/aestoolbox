@@ -24,7 +24,7 @@ jobs:
         python setup.py sdist bdist_wheel 
     - name: Check dist
       run: >-
-        twine check-dist/*
+        twine check dist/*
     - name: Publish a eck dist/*Python distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
