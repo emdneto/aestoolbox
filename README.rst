@@ -16,7 +16,7 @@ AES-Toolbox
         :alt: Documentation Status
         
 .. image:: https://img.shields.io/github/license/emdneto/aestoolbox.svg
-        :target: https://github.com/emdneto/aestoolbox/blob/master/LICENSE
+        :target: https://github.com/emdneto/aestoolbox/blob/main/LICENSE
         :alt: License
 
 An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit key.
