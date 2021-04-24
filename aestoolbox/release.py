@@ -4,7 +4,7 @@ This file states the AES-Toolbox metadata release information.
 from __future__ import absolute_import, division, print_function
 
 
-__version__ = "0.0.1"
+__version__ = "0.0.3"
 __author__ = "Emídio Neto"
 __license__ = "MIT License"
 __url__ = "https://github.com/emdneto/aestoolbox.git"
