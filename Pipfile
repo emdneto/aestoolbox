@@ -53,6 +53,8 @@ Sphinx = "==3.5.4"
 watchdog = "*"
 argh = "*"
 sphinx-rtd-theme = "*"
+twine = "*"
+wheel = "*"
 
 [requires]
 python_version = "3.8"

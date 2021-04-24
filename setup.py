@@ -20,7 +20,7 @@ except ModuleNotFoundError:
     sys.exit(-1)
 
 
-with open("README.rst") as readme_file:
+with open("README.pypi.rst") as readme_file:
     readme = readme_file.read()
 
 requirements = []
@@ -48,7 +48,8 @@ setup(
     license=__license__,
     long_description=readme + "\n\n",
     include_package_data=True,
-    keywords="AES",
+    keywords="AES Key Schedule Rijndael AES-128 AES-192 AES-192 AES Key \
+    Expansion aeskeyschedule aes toolbox aes-key",
     name="aestoolbox",
     packages=find_packages(),
     setup_requires=setup_requirements,
