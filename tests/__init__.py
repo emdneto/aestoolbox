@@ -1,1 +1,1 @@
-"""Unit test package for feta."""
+"""Unit test package for aestoolbox."""

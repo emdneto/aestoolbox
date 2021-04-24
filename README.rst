@@ -1,6 +1,6 @@
-====
+===========
 AES-Toolbox
-====
+===========
 
 
 .. image:: https://img.shields.io/pypi/v/aestoolbox.svg
@@ -31,7 +31,7 @@ Features
 * AES Encrypt/Decrypt (work in progress)
 
 Get AES-Toolbox from source
------------------------
+---------------------------
 
 First, clone the `AES-Toolbox GitHub repository <https://github.com/emdneto/aestoolbox>`_ using git:
 
