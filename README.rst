@@ -25,29 +25,65 @@ An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit 
 
 * Documentation: https://aestoolbox.readthedocs.io.
 
-
+========
 Features
---------
+========
 
 * Encryption/Decryption Key Scheduling
 * AES Encrypt/Decrypt (work in progress)
+ 
 
-Get AES-Toolbox from source
----------------------------
+============
+Installation
+============
+.. highlight:: shell
 
-First, clone the `AES-Toolbox GitHub repository <https://github.com/emdneto/aestoolbox>`_ using git:
+Stable release via pip
+----------------------
 
-.. code-block:: bash
+To install AES-Toolbox, run this command in your terminal:
 
-    $ git clone https://github.com/emdneto/aestoolbox
+.. code-block:: console
 
-Then, ``cd`` to the created directory and run:
+    $ pip install aestoolbox
 
-.. code-block:: bash
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
 
-    $ make install
-    
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
+
+Get from source
+---------------
+
+The sources for AES-Toolbox can be downloaded from the `Github repo`_. This is the preferred method to install AES-Toolbox, as it will always install the most recent stable release.
+
+You can either clone the public repository:
+
+.. code-block:: console
+
+    $ git clone git://github.com/emdneto/aestoolbox
+
+Or download the `tarball`_:
+
+.. code-block:: console
+
+    $ curl -OJL https://github.com/emdneto/aestoolbox/tarball/master
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: console
+
+    $ python setup.py install
+
+
+.. _Github repo: https://github.com/emdneto/aestoolbox
+.. _tarball: https://github.com/emdneto/aestoolbox/tarball/master
+
+=================
+Using AES-Toolbox
+=================
 
 Usage (via CLI)
 ---------------
