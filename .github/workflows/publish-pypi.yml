@@ -21,9 +21,11 @@ jobs:
         pip setuptools wheel
     - name: Build AES-Toolbox package
       run: >-
-        python setup.py sdist bdist_wheel
-        twine check dist/*
-    - name: Publish a Python distribution to PyPI
+        python setup.py sdist bdist_wheel 
+    - name: Check dist
+      run: >-
+        twine check-dist/*
+    - name: Publish a eck dist/*Python distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: ${{ secrets.PYPI_API_USER }}
