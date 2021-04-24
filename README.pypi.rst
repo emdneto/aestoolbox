@@ -26,6 +26,7 @@ AES-Toolbox
 An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit key.
 
 * Documentation: https://aestoolbox.readthedocs.io.
+* Github: https://github.com/emdneto/aestoolbox.
 
 ========
 Features
@@ -38,7 +39,7 @@ Features
 ============
 Installation
 ============
-.. highlight:: shell
+
 
 Stable release via pip
 ----------------------
@@ -55,33 +56,6 @@ you through the process.
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
-
-Get from source
----------------
-
-The sources for AES-Toolbox can be downloaded from the `Github repo`_. This is the preferred method to install AES-Toolbox, as it will always install the most recent stable release.
-
-You can either clone the public repository:
-
-.. code-block:: console
-
-    $ git clone git://github.com/emdneto/aestoolbox
-
-Or download the `tarball`_:
-
-.. code-block:: console
-
-    $ curl -OJL https://github.com/emdneto/aestoolbox/tarball/master
-
-Once you have a copy of the source, you can install it with:
-
-.. code-block:: console
-
-    $ python setup.py install
-
-
-.. _Github repo: https://github.com/emdneto/aestoolbox
-.. _tarball: https://github.com/emdneto/aestoolbox/tarball/master
 
 =================
 Using AES-Toolbox
@@ -124,12 +98,6 @@ The above command should output:
          8: '0xc20b68478c7a95075a36bf18f254e9da',
          9: '0x7edace11f2a05b16a896e40e5ac20dd4',
          10: '0x0f505fb04602816a46a47ee776a29b75'}}
-
-
-Usage as Python Library
------------------------
-
-Soon
 
 
 Disclaimer
