@@ -14,7 +14,10 @@ AES-Toolbox
 .. image:: https://readthedocs.org/projects/aestoolbox/badge/?version=latest
         :target: https://aestoolbox.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
-
+        
+.. image:: https://img.shields.io/github/license/emdneto/aestoolbox.svg
+        :target: https://github.com/emdneto/aestoolbox/blob/master/LICENSE
+        :alt: License
 
 An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit key.
 
