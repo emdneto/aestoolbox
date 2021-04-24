@@ -1,14 +1,19 @@
-Welcome to AES-Toolbox documentation!
-======================================
+*************************************
+AES-Toolbox documentation
+*************************************
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Installation & Usage:
 
    readme
-   installation
-   usage
-   modules
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference & Appendices
+
+   references
 
 
 Indices and tables
