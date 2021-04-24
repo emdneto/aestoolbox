@@ -3,11 +3,13 @@ AES-Toolbox
 ===========
 
 
-.. image:: https://img.shields.io/pypi/v/aestoolbox.svg
-        :target: https://pypi.python.org/emdneto/aestoolbox
-
 .. image:: https://travis-ci.com/emdneto/aestoolbox.svg?branch=main
         :target: https://travis-ci.com/emdneto/aestoolbox
+        :alt: TravisCI
+
+.. image:: https://codecov.io/gh/emdneto/aestoolbox/branch/main/graph/badge.svg
+        :target: https://codecov.io/gh/emdneto/aestoolbox
+        :alt: Code coverage
 
 .. image:: https://readthedocs.org/projects/aestoolbox/badge/?version=latest
         :target: https://aestoolbox.readthedocs.io/en/latest/?badge=latest
