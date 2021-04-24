@@ -16,11 +16,6 @@ AES-Toolbox
         :alt: Documentation Status
 
 
-.. image:: https://pyup.io/repos/github/latarc/aestoolbox/shield.svg
-     :target: https://pyup.io/repos/github/latarc/aestoolbox/
-     :alt: Updates
-
-
 An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit key.
 
 * Documentation: https://aestoolbox.readthedocs.io.
