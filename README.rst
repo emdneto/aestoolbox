@@ -10,7 +10,11 @@ AES-Toolbox
 .. image:: https://codecov.io/gh/emdneto/aestoolbox/branch/main/graph/badge.svg
         :target: https://codecov.io/gh/emdneto/aestoolbox
         :alt: Code coverage
-
+        
+.. image:: https://www.codefactor.io/repository/github/emdneto/aestoolbox/badge
+   :target: https://www.codefactor.io/repository/github/emdneto/aestoolbox
+   :alt: CodeFactor
+   
 .. image:: https://readthedocs.org/projects/aestoolbox/badge/?version=latest
         :target: https://aestoolbox.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
