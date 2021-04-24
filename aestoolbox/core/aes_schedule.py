@@ -82,7 +82,7 @@ class KeySchedule:
     def expand_key(self):
         """
         Computes the expanded AES key given a 128, 192 or 256 bit key.
-        :return:  Expanded AES Key. If `dec` is True, also returns the
+        :return:  Expanded AES Key. If `dec` is True, also returns the \n
                   decryption expanded AES Key in a tuple.
         """
 

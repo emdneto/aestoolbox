@@ -17,7 +17,7 @@ class ToolboxLogger:
 
         if debug:
             level = logging.DEBUG
-            logger = getLogger("feta")
+            logger = getLogger("aestoolbox")
             logger.setLevel(level)
             for handler in logger.handlers:
                 handler.setLevel(level)

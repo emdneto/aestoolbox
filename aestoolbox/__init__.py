@@ -1,6 +1,5 @@
-"""Top-level package for feta."""
+"""Top-level package for aestoolbox."""
 from pkgutil import extend_path
-__path__ = extend_path(__path__, __name__)
+from .release import __version__  # noqa: F401
 
-__author__ = """LaTARC Research Lab"""
-__email__ = 'latarc@ifrn.edu.br'
+__path__ = extend_path(__path__, __name__)
