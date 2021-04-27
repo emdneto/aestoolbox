@@ -35,7 +35,7 @@ An AES Toolbox for computing Rijndael key schedule given a 128, 192, or 256-bit 
 Features
 ========
 
-* Encryption/Decryption Key Scheduling
+* AES Key Schedule
 * AES Encrypt/Decrypt (work in progress)
  
 
